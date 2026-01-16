@@ -3,6 +3,21 @@ require("dotenv").config();
 
 const { AttachmentBuilder } = require('discord.js');
 
+
+const express = require("express");
+const app = express();
+
+const PORT = process.env.PORT || 3000;
+
+app.get("/", (req, res) => {
+  res.send("Bot vivo ??");
+});
+
+app.listen(PORT, () => {
+  console.log(`Web service escuchando en puerto ${PORT}`);
+});
+
+
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
