@@ -126,7 +126,7 @@ if (message.content.toLowerCase().includes("pinned")) {
     message.channel.send(`HOY JUEGA UOOOOOOOOOOOOOOOOOCAAAAAAAAAAAA`);
   }
   if (message.content.toLowerCase().includes("kaisa")) {
-    message.channel.send(`Sullivan dame a la ni?a`);
+    message.channel.send(`Sullivan dame a la ni帽a`);
   }
   if (message.content.toLowerCase().includes("jotape")) {
     message.channel.send(`馃崋 Te parecen bien 47 cm?`);
@@ -143,20 +143,20 @@ if (
 ) {
   // 99% jabon
   resultado = Math.random() < 0.99
-  ? `馃Ъ Te tocó sabor **jabón**`
-    : `馃崜 Te tocó sabor **frutilla**`;
+  ? `馃Ъ Te toc贸 sabor **jab贸n**`
+    : `馃崜 Te toc贸 sabor **frutilla**`;
 } else {
   const bueno = Math.random() < 0.5; // 50 / 50
 
   if (bueno) {
     // Caso especial nootnoot9070
     if (username === 'nootnoot9070' && Math.random() < 0.02) {
-      resultado = `馃崙 Te tocó sabor **kako**`;
+      resultado = `馃崙 Te toc贸 sabor **kako**`;
     } else {
-      resultado = `馃崜 Te tocó sabor **frutilla**`;
+      resultado = `馃崜 Te toc贸 sabor **frutilla**`;
     }
   } else {
-    resultado = `馃Ъ Te tocó sabor **jabón**`;
+    resultado = `馃Ъ Te toc贸 sabor **jab贸n**`;
   }
 }
 
@@ -169,7 +169,7 @@ if (message.content === "!Yerba") {
     "*se cae de la escalera*",
     "Ponetelo nene que hace frio *le da una bufanda*",
     "Cafecito en taza de porcelana herencia de la nona me siento una se?ora de alta clase",
-    "Me metio una parte de su cuerpo en la boca y me dijo shhhh quedate quieto papito. Oh travalinda volvé te hago la oficial",
+    "Me metio una parte de su cuerpo en la boca y me dijo shhhh quedate quieto papito. Oh travalinda volv茅 te hago la oficial",
     "La colita!? owo. *se menea*",
     "Soy mujer, hembra. Soy una PERRA",
     "Ese pitito lo conozco",
@@ -201,14 +201,14 @@ if (message.content.toLowerCase().startsWith("!despeinar")) {
     const usuario = message.mentions.users.first();
 
     if (!usuario) {
-      return message.reply("tenés que mencionar a alguien gato, a quien vas a despeinar? al aire?");
+      return message.reply("ten茅s que mencionar a alguien gato, a quien vas a despeinar? al aire?");
     }
 
     // Imagen
     const img = new AttachmentBuilder("./images/despeinar.png");
 
     message.channel.send({
-      content: `${message.author} despeinó a ${usuario}`,
+      content: `${message.author} despein贸 a ${usuario}`,
       files: [img]
     });
   }
@@ -347,7 +347,7 @@ if (message.content.toLowerCase().startsWith("!despeinar")) {
   const numero = Math.floor(Math.random() * 9);
   
   const lista = [
-  "Juira negro, aca la ara?a manda",
+  "Juira negro, aca la ara帽a manda",
   "*snifea sangre marron*",
   "Pero? Dijiste pero?",
   "*traicionado y encerrado en la habitacion marron por 1000 a?os",
