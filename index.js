@@ -311,6 +311,17 @@ if (message.content.toLowerCase().includes("mahito")) {
   });
 }
 
+	  if (
+  message.content.toLowerCase().includes("jacaranda") 
+) {
+  const img = new AttachmentBuilder('./images/jacaranda.png');
+
+  message.channel.send({
+    content: 'OMG JACARANDA HI \ OwO / ',
+    files: [img]
+  });
+}
+
   if (message.content === 'happy') {
   const img = new AttachmentBuilder('./images/happy.png');
 
