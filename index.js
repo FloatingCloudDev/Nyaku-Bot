@@ -41,15 +41,16 @@ client.once("ready", async () => {
   }, DOS_HORAS);
 });
 
+const numero = Math.floor(Math.random() * 6) + 1;
 
-const SEIS_HORAS = 6 * 60 * 60 * 1000;
+const SEIS_HORAS = numero * 60 * 60 * 1000;
 
 client.once("ready", async () => {
   console.log(`Bot listo como ${client.user.tag}`);
 
   const canal = await client.channels.fetch(CANAL_ID);
 
-  canal.send("*se desequilibra mentalmente*");
+ // canal.send("*se desequilibra mentalmente*");
 
   setInterval(() => {
     canal.send("*se desequilibra mentalmente*");
@@ -82,7 +83,7 @@ client.on("messageCreate", message => {
   }
 
   if (seCaen) {
-    message.channel.send(`馃す Hice malabares con ${pelotas} pelotas y se me cayeron ??`);
+    message.channel.send(`馃す Hice malabares con ${pelotas} pelotas y se me cayeron`);
   } else {
     message.channel.send(`馃す Hice malabares con ${pelotas} pelotas`);
   }
@@ -142,20 +143,20 @@ if (
 ) {
   // 99% jabon
   resultado = Math.random() < 0.99
-  ? `馃Ъ Te toc贸 sabor **jab贸n**`
-    : `馃崜 Te toc贸 sabor **frutilla**`;
+  ? `馃Ъ Te tocó sabor **jabón**`
+    : `馃崜 Te tocó sabor **frutilla**`;
 } else {
   const bueno = Math.random() < 0.5; // 50 / 50
 
   if (bueno) {
     // Caso especial nootnoot9070
     if (username === 'nootnoot9070' && Math.random() < 0.02) {
-      resultado = `馃崙 Te toc贸 sabor **kako**`;
+      resultado = `馃崙 Te tocó sabor **kako**`;
     } else {
-      resultado = `馃崜 Te toc贸 sabor **frutilla**`;
+      resultado = `馃崜 Te tocó sabor **frutilla**`;
     }
   } else {
-    resultado = `馃Ъ Te toc贸 sabor **jab贸n**`;
+    resultado = `馃Ъ Te tocó sabor **jabón**`;
   }
 }
 
@@ -167,8 +168,8 @@ if (message.content === "!Yerba") {
   const mensajes = [
     "*se cae de la escalera*",
     "Ponetelo nene que hace frio *le da una bufanda*",
-    "Cafecito en taza de porcelana herencia de la nona me siento una se帽ora de alta clase",
-    "Me metio una parte de su cuerpo en la boca y me dijo shhhh quedate quieto papito. Oh travalinda volv茅 te hago la oficial",
+    "Cafecito en taza de porcelana herencia de la nona me siento una se?ora de alta clase",
+    "Me metio una parte de su cuerpo en la boca y me dijo shhhh quedate quieto papito. Oh travalinda volvé te hago la oficial",
     "La colita!? owo. *se menea*",
     "Soy mujer, hembra. Soy una PERRA",
     "Ese pitito lo conozco",
@@ -200,7 +201,7 @@ if (message.content.toLowerCase().startsWith("!despeinar")) {
     const usuario = message.mentions.users.first();
 
     if (!usuario) {
-      return message.reply("tenés que mencionar a alguien ??");
+      return message.reply("tenés que mencionar a alguien gato, a quien vas a despeinar? al aire?");
     }
 
     // Imagen
