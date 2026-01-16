@@ -499,7 +499,7 @@ client.on('messageCreate', (message) => {
     saveAura();
   }
 
-  // !farmearaura
+
   if (message.content === '!farmearaura') {
     aura[userId] += 50;
     saveAura();
@@ -510,7 +510,6 @@ client.on('messageCreate', (message) => {
     );
   }
 
-  // !aura
   if (message.content === '!aura') {
     message.channel.send(
       `🔮 **${username}**, tu aura es **${aura[userId]}**`
