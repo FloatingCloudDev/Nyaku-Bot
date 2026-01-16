@@ -433,6 +433,11 @@ if (message.content.toLowerCase().includes("mahito")) {
     message.channel.send(`https://tenor.com/view/oguri-cap-uma-musume-umamusume-cinderella-gray-jumping-gif-16835630937186156678`);
 	}
 
+     if (message.content.toLowerCase().includes("rolo")) {
+	message.channel.send(`Mientras tanto rolo:`);   
+    message.channel.send(`https://tenor.com/view/icarly-gibby-icarly-minecraft-tnt-minecraft-memes-gif-25207661`);
+	}
+
   if (message.content.toLowerCase().includes("kentucky")) {
     message.channel.send(`🍕 Detonar Kentucky de Av. Santa Fe`);
   }
