@@ -410,7 +410,7 @@ if (message.content.toLowerCase().includes("mahito")) {
   "Juira negro, aca la araña manda",
   "*snifea sangre marron*",
   "Pero? Dijiste pero?",
-  "*traicionado y encerrado en la habitacion marron por 1000 a?os",
+  "*traicionado y encerrado en la habitacion marron por 1000 años",
   "Te falta odio NEGRO",
   "*Se enoja nazimente*",
   "Que paso papito?",
@@ -475,6 +475,53 @@ if (message.content.toLowerCase().includes("shizus")) {
 }
 
 });
+
+const AURA_FILE = './aura.json';
+
+let aura = {};
+if (fs.existsSync(AURA_FILE)) {
+  aura = JSON.parse(fs.readFileSync(AURA_FILE, 'utf8'));
+}
+
+function saveAura() {
+  fs.writeFileSync(AURA_FILE, JSON.stringify(aura, null, 2));
+}
+
+client.on('messageCreate', (message) => {
+  if (message.author.bot) return;
+
+  const userId = message.author.id;
+  const username = message.author.username;
+
+  // Inicializar aura si no existe
+  if (!aura[userId]) {
+    aura[userId] = 0;
+    saveAura();
+  }
+
+  // !farmearaura
+  if (message.content === '!farmearaura') {
+    aura[userId] += 50;
+    saveAura();
+
+    message.channel.send(
+      `✨ **${username}** farmeó aura\n` +
+      `🔮 Aura actual: **${aura[userId]}**`
+    );
+  }
+
+  // !aura
+  if (message.content === '!aura') {
+    message.channel.send(
+      `🔮 **${username}**, tu aura es **${aura[userId]}**`
+    );
+  }
+});
+
+
+
+
+
 
 client.login(process.env.TOKEN);
 
