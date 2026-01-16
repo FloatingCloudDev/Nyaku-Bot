@@ -53,7 +53,7 @@ client.once("ready", async () => {
  // canal.send("*se desequilibra mentalmente*");
 
   setInterval(() => {
-    canal.send("*se desequilibra mentalmente*");
+    canal.send("*Se tira agua encima y se bugea*");
   }, SEIS_HORAS);
 });
 
@@ -185,7 +185,8 @@ if (message.content === "!Yerba") {
 	"Estuve 30 minutos para que me entre completa",
 	"Que estas intentando hacer zorra? Habil es mio",
 	"Queres verme las garritas?",
-	"Un dia voy a tomar la pastilla y todos ustedes van a desaparecer de mi mente"
+	"Un dia voy a tomar la pastilla y todos ustedes van a desaparecer de mi mente",
+  "Hay que tomarse la pastilla o ya es la hora de tomarse la pastilla"
   ];
 
   const mensaje = mensajes[Math.floor(Math.random() * mensajes.length)];
