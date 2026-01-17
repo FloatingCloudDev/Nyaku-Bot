@@ -465,7 +465,7 @@ if (message.content.toLowerCase().includes("ysa")) {
 }
 
 if (message.content.toLowerCase().includes("tkm")) {
-  message.channel.send(`teque?o mucho <:cute:1438715026398515370>`);
+  message.channel.send(`tequeño mucho <:cute:1438715026398515370>`);
 }
 
 if (message.content.toLowerCase().includes("shizus")) {
@@ -514,6 +514,19 @@ client.on('messageCreate', (message) => {
     message.channel.send(
       `🔮 **${username}**, tu aura es **${aura[userId]}**`
     );
+  }
+
+  if (message.content === '!ExpansionDelDominio' && username.includes('floatingcloud') ) {
+    aura[userId] = aura[userId] * 4;
+    saveAura();
+
+    message.channel.send(
+      `✨ Toki nunca aprendió la técnica de farmear aura invertida,
+    pero… la energia maldita infinita que desborda en el cuerpo de Toki hizo que su cuerpo realizara de forma refleja una técnica de farmear
+    aura para evitar ser bonkeado. O sea, en los 4 minutos y 11 segundos después de un premio de fernet cordobé, Toki es prácticamente inmortal., \n` +
+      `🔮 Aura actual: **${aura[userId]}**`
+    );
+    message.channel.send(`https://tenor.com/view/hakari-domain-expansion-domain-expansion-anime-gif-11188887952426718576`);
   }
 });
 
