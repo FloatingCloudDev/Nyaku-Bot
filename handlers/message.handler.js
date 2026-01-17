@@ -5,15 +5,13 @@ const {
 } = require('../services/aura.service');
 
 const textResponses = require('../responses/textResponses');
-const imageResponses = require('../responses/imageResponses');
-const comandosBase = require('../responses/comandosbase');
 
 module.exports = async function handleMessage(message) {
   if (message.author.bot) return;
 
   const userId = message.author.id;
   const username = message.author.username.toLowerCase();
-  const content = message.content.toLowerCase();
+  const content = message.content.toLowerCase().trim();
 
   /* =====================
      COMANDOS DE AURA
@@ -49,32 +47,8 @@ module.exports = async function handleMessage(message) {
   }
 
   /* =====================
-     RESPUESTAS DE TEXTO
+     RESPUESTAS AUTOMÁTICAS
   ====================== */
 
-  if (textResponses[content]) {
-    return message.channel.send(textResponses[content]);
-  }
-
-  /* =====================
-     RESPUESTAS CON IMÁGENES
-  ====================== */
-
-  if (imageResponses[content]) {
-    return message.channel.send({
-      files: [imageResponses[content]]
-    });
-  }
-
-  /* =====================
-     COMANDOS BASE
-  ====================== */
-
-  if (content.startsWith('!')) {
-    const comando = content.slice(1);
-
-    if (comandosBase[comando]) {
-      return comandosBase[comando](message);
-    }
-  }
+  await textResponses(message);
 };
