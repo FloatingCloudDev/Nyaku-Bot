@@ -4,7 +4,7 @@ module.exports = async function comandosBase(message) {
     const content = message.content.toLowerCase();
     const username = message.member.displayName;
 
-    if(content === "!Malabares") {{
+    if(content === "!malabares") {{
     const pelotas = Math.floor(Math.random() * (8 - 3 + 1)) + 3;
     let seCaen = false;
 
@@ -24,7 +24,7 @@ module.exports = async function comandosBase(message) {
     }
     }
 
-    if (content === '!Dulcemagico') {
+    if (content === '!dulcemagico') {
     let resultado;
 
     if (username.includes('kiti') || username.includes('lissie') || username.includes('kittie')) {
@@ -43,7 +43,7 @@ module.exports = async function comandosBase(message) {
     return message.channel.send(resultado);
     }
     
-    if (content === "!Yerba") {
+    if (content === "!yerba") {
     const mensajes = [
     "*se cae de la escalera*",
     "Ponetelo nene que hace frio *le da una bufanda*",
@@ -71,14 +71,14 @@ module.exports = async function comandosBase(message) {
     return message.channel.send(`<:yerba:1438226204187693217> ${mensaje}`);
     }
 
-    if (content.startsWith("!Despeinar")) {
+    if (content.startsWith("!despeinar")) {
     const usuario = message.mentions.users.first();
     if (!usuario) {return message.reply("tenés que mencionar a alguien gato, a quien vas a despeinar? al aire?");}
     const img = new AttachmentBuilder("./images/despeinar.png");
     return message.channel.send({content: `${message.author} despeinó a ${usuario}`, files: [img]});
     }
     
-    if (content === "!Mahito") {
+    if (content === "!mahito") {
     const mensajes = [
     "Por fin atrapamo' a la maldición de grado especial conocida como Mahito Ya te tenemo', buena perra",
 
@@ -102,7 +102,7 @@ module.exports = async function comandosBase(message) {
     return message.channel.send(`${mensaje}`);
     }
     
-    if (content === ("!Mahoraga")) {
+    if (content === ("!mahoraga")) {
     const mahoraga = new AttachmentBuilder('./images/cordobesaestafadora.png');
     const mahocuriou = new AttachmentBuilder('./images/cordobesaestafadora.png');    
     if (username.includes('nootnoot9070') ) {return message.channel.send({content: `*se adapta legalmente`, files: [mahocuriou]});}
