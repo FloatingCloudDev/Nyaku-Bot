@@ -54,5 +54,5 @@ module.exports = async function handleMessage(message) {
 
   await textResponses(message);
   await imageResponses(message);
-  await awaitcomandosbase(message);
+  await comandosbase(message);
 };
