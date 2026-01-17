@@ -101,6 +101,15 @@ module.exports = async function imageResponses(message) {
     });
     }
 
+     if (content.includes("accidente")) {
+    const img = new AttachmentBuilder('./images/accidentes.png');
+
+    return message.channel.send({
+    content: ' ',
+    files: [img]
+    });
+    }
+
     if (content.includes("pedilo")) {
     const img = new AttachmentBuilder('./images/pedilo.png');
 
