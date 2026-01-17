@@ -90,7 +90,7 @@ client.once("ready", async () => {
 });
 
 // 🔹 1) Responder "Rawr" si alguien dice "Cami"
-client.on("messageCreate", async message => {
+client.on("messageCreate", async (message) => {
   if (message.author.bot) return;
 
   if (message.content.toLowerCase().includes("rawr")) {
