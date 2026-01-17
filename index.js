@@ -7,6 +7,15 @@ const fs = require('fs');
 const express = require("express");
 const app = express();
 const mongoose = require('mongoose');
+const PORT = process.env.PORT || 3000;
+
+app.get("/", (req, res) => {
+  res.send("Bot vivo ??");
+});
+
+app.listen(PORT, () => {
+  console.log(`Web service escuchando en puerto ${PORT}`);
+});
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('🟢 MongoDB conectado'))
@@ -25,19 +34,20 @@ const auraSchema = new mongoose.Schema({
   }
 });
 
+async function sumarAura(userId, cantidad) {
+  const userAura = await Aura.findOneAndUpdate(
+    { userId },
+    { $inc: { aura: cantidad } },
+    { new: true, upsert: true }
+  );
+
+  return userAura.aura;
+}
 
 
 
 
-const PORT = process.env.PORT || 3000;
 
-app.get("/", (req, res) => {
-  res.send("Bot vivo ??");
-});
-
-app.listen(PORT, () => {
-  console.log(`Web service escuchando en puerto ${PORT}`);
-});
 
 
 const client = new Client({
@@ -80,7 +90,7 @@ client.once("ready", async () => {
 });
 
 // 🔹 1) Responder "Rawr" si alguien dice "Cami"
-client.on("messageCreate", message => {
+client.on("messageCreate", async message => {
   if (message.author.bot) return;
 
   if (message.content.toLowerCase().includes("rawr")) {
@@ -505,65 +515,64 @@ if (message.content.toLowerCase().includes("shizus")) {
   );
 }
 
-});
-
-const Aura = require('./models/Aura');
-
-async function sumarAura(userId, cantidad) {
-  const userAura = await Aura.findOneAndUpdate(
-    { userId },
-    { $inc: { aura: cantidad } },
-    { new: true, upsert: true }
-  );
-
-  return userAura.aura;
-}
 
 
-if (message.content === '!farmearaura') {
-  const total = await sumarAura(message.author.id, 50);
 
-  message.reply(`✨ Farmiaste aura (+50)\n🔥 Aura total: **${total}**`);
-}
+  const userId = message.author.id;
+  const username = message.author.username.toLowerCase();
 
-if (message.content === '!aura') {
-  const data = await Aura.findOne({ userId: message.author.id });
+ 
+  if (message.content === '!farmearaura') {
+    const total = await sumarAura(userId, 50);
 
-  const aura = data?.aura ?? 0;
-
-  message.reply(`🌟 Tu aura actual es **${aura}**`);
-}
-
-const Aura = require('./models/Aura');
-
-if (
-  message.content === '!ExpansionDelDominio' &&
-  username.includes('floatingcloud')
-) {
-  // Buscar aura actual (o crearla si no existe)
-  let userAura = await Aura.findOne({ userId });
-
-  if (!userAura) {
-    userAura = await Aura.create({
-      userId,
-      aura: 0
-    });
+    message.reply(
+      `✨ Farmiaste aura (+50)\n🔥 Aura total: **${total}**`
+    );
   }
 
-  // Multiplicar x4
-  userAura.aura = userAura.aura * 4;
-  await userAura.save();
+ 
+  if (message.content === '!aura') {
+    const data = await Aura.findOne({ userId });
+    const aura = data?.aura ?? 0;
 
-  message.channel.send(
-    `✨ Toki nunca aprendió la técnica de farmear aura invertida, pero… la energía maldita infinita que desborda en el cuerpo de Toki hizo que su cuerpo realizara de forma refleja una técnica de farmear
-aura para evitar ser bonkeado. O sea, en los **4 minutos y 11 segundos** después de un premio de fernet cordobé, **Toki es prácticamente inmortal**.\n\n` +
-    `🔮 Aura actual: **${userAura.aura}**`
-  );
+    message.reply(`🌟 Tu aura actual es **${aura}**`);
+  }
 
-  message.channel.send(
-    'https://tenor.com/view/hakari-domain-expansion-domain-expansion-anime-gif-11188887952426718576'
-  );
-}
+
+  if (
+    message.content === '!ExpansionDelDominio' &&
+    username.includes('floatingcloud')
+  ) {
+    let userAura = await Aura.findOne({ userId });
+
+    if (!userAura) {
+      userAura = await Aura.create({
+        userId,
+        aura: 0
+      });
+    }
+
+    userAura.aura *= 4;
+    await userAura.save();
+
+    message.channel.send(
+      `✨ Toki nunca aprendió la técnica de farmear aura invertida…
+
+🕓 Durante **4 minutos y 11 segundos**, **Toki es prácticamente inmortal**.
+
+🔮 Aura actual: **${userAura.aura}**`
+    );
+
+    message.channel.send(
+      'https://tenor.com/view/hakari-domain-expansion-domain-expansion-anime-gif-11188887952426718576'
+    );
+  }
+
+
+
+});
+
+
 
 
 
