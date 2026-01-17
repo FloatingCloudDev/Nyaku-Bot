@@ -6,7 +6,7 @@ const {
 
 const textResponses = require('../responses/textResponses');
 const imageResponses = require('../responses/imageResponses');
-const comandosbases = require('../responses/comandosbase');
+const comandosBases = require('../responses/comandosbase');
 
 module.exports = async function handleMessage(message) {
   if (message.author.bot) return;
@@ -54,5 +54,5 @@ module.exports = async function handleMessage(message) {
 
   await textResponses(message);
   await imageResponses(message);
-  await comandosbase(message);
+  await comandosBases(message);
 };
