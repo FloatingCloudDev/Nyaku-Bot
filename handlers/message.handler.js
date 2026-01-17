@@ -4,12 +4,20 @@ const {
   aplicarExpansion
 } = require('../services/aura.service');
 
+const textResponses = require('../responses/textResponses');
+const imageResponses = require('../responses/imageResponses');
+const comandosBase = require('../responses/comandosbase');
+
 module.exports = async function handleMessage(message) {
   if (message.author.bot) return;
 
   const userId = message.author.id;
   const username = message.author.username.toLowerCase();
-  const content = message.content;
+  const content = message.content.toLowerCase();
+
+  /* =====================
+     COMANDOS DE AURA
+  ====================== */
 
   if (content === '!farmearaura') {
     const total = await sumarAura(userId, 50);
@@ -23,7 +31,10 @@ module.exports = async function handleMessage(message) {
     return message.reply(`🌟 Tu aura actual es **${aura}**`);
   }
 
-  if (content === '!ExpansionDelDominio' && username.includes('floatingcloud')) {
+  if (
+    content === '!expansiondeldominio' &&
+    username.includes('floatingcloud')
+  ) {
     const auraFinal = await aplicarExpansion(userId);
 
     await message.channel.send(
@@ -35,5 +46,35 @@ module.exports = async function handleMessage(message) {
     return message.channel.send(
       'https://tenor.com/view/hakari-domain-expansion-domain-expansion-anime-gif-11188887952426718576'
     );
+  }
+
+  /* =====================
+     RESPUESTAS DE TEXTO
+  ====================== */
+
+  if (textResponses[content]) {
+    return message.channel.send(textResponses[content]);
+  }
+
+  /* =====================
+     RESPUESTAS CON IMÁGENES
+  ====================== */
+
+  if (imageResponses[content]) {
+    return message.channel.send({
+      files: [imageResponses[content]]
+    });
+  }
+
+  /* =====================
+     COMANDOS BASE
+  ====================== */
+
+  if (content.startsWith('!')) {
+    const comando = content.slice(1);
+
+    if (comandosBase[comando]) {
+      return comandosBase[comando](message);
+    }
   }
 };
