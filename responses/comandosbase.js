@@ -104,9 +104,9 @@ module.exports = async function comandosBase(message) {
     
     if (content === ("!mahoraga")) {
     const mahoraga = new AttachmentBuilder('./images/mahoraga.png');
-    const mahocuriou = new AttachmentBuilder('./images/mahocuriou.png');    
-    if (username.includes('refington1') ) {return message.channel.send({content: `*se adapta legalmente`, files: [mahocuriou]});}
-    else {return message.channel.send({content: `*se adapta`, files: [mahoraga]});}
+    const mahocuriou = new AttachmentBuilder('./images/mahoragacurious.png');    
+    if (username.includes('refington1') ) {return message.channel.send({content: `*se adapta legalmente*`, files: [mahocuriou]});}
+    else {return message.channel.send({content: `*se adapta*`, files: [mahoraga]});}
     }
 
 };
