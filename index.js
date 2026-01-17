@@ -400,6 +400,15 @@ if (message.content.toLowerCase().includes("mahito")) {
   });
 }
 
+
+if (message.content.toLowerCase().includes("!Defensa")) {
+  const img = new AttachmentBuilder('./images/defensa.png');
+
+  message.channel.send({
+    content: '*se pone esponjoso*',
+    files: [img]
+  });
+}
 	
 	if (message.content.toLowerCase().includes("julian")) {
 
