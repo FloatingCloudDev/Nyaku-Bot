@@ -105,7 +105,7 @@ module.exports = async function comandosBase(message) {
     if (content === ("!mahoraga")) {
     const mahoraga = new AttachmentBuilder('./images/mahoraga.png');
     const mahocuriou = new AttachmentBuilder('./images/mahoragacurious.png');    
-    if (username.includes('refington1') ) {return message.channel.send({content: `*se adapta legalmente*`, files: [mahocuriou]});}
+    if (message.author.id === ("539964172096634900") ) {return message.channel.send({content: `*se adapta legalmente*`, files: [mahocuriou]});}
     else {return message.channel.send({content: `*se adapta*`, files: [mahoraga]});}
     }
 
