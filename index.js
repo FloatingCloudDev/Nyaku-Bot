@@ -6,6 +6,28 @@ const fs = require('fs');
 
 const express = require("express");
 const app = express();
+const mongoose = require('mongoose');
+
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('🟢 MongoDB conectado'))
+  .catch(err => console.error('🔴 Error MongoDB:', err));
+
+
+const auraSchema = new mongoose.Schema({
+  userId: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  aura: {
+    type: Number,
+    default: 0
+  }
+});
+
+
+
+
 
 const PORT = process.env.PORT || 3000;
 
@@ -485,59 +507,67 @@ if (message.content.toLowerCase().includes("shizus")) {
 
 });
 
-const AURA_FILE = './aura.json';
+const Aura = require('./models/Aura');
 
-let aura = {};
-if (fs.existsSync(AURA_FILE)) {
-  aura = JSON.parse(fs.readFileSync(AURA_FILE, 'utf8'));
+async function sumarAura(userId, cantidad) {
+  const userAura = await Aura.findOneAndUpdate(
+    { userId },
+    { $inc: { aura: cantidad } },
+    { new: true, upsert: true }
+  );
+
+  return userAura.aura;
 }
 
-function saveAura() {
-  fs.writeFileSync(AURA_FILE, JSON.stringify(aura, null, 2));
+
+if (message.content === '!farmearaura') {
+  const total = await sumarAura(message.author.id, 50);
+
+  message.reply(`✨ Farmiaste aura (+50)\n🔥 Aura total: **${total}**`);
 }
 
-client.on('messageCreate', (message) => {
-  if (message.author.bot) return;
+if (message.content === '!aura') {
+  const data = await Aura.findOne({ userId: message.author.id });
 
-  const userId = message.author.id;
-  const username = message.author.username;
+  const aura = data?.aura ?? 0;
 
-  // Inicializar aura si no existe
-  if (!aura[userId]) {
-    aura[userId] = 0;
-    saveAura();
+  message.reply(`🌟 Tu aura actual es **${aura}**`);
+}
+
+const Aura = require('./models/Aura');
+
+if (
+  message.content === '!ExpansionDelDominio' &&
+  username.includes('floatingcloud')
+) {
+  // Buscar aura actual (o crearla si no existe)
+  let userAura = await Aura.findOne({ userId });
+
+  if (!userAura) {
+    userAura = await Aura.create({
+      userId,
+      aura: 0
+    });
   }
 
+  // Multiplicar x4
+  userAura.aura = userAura.aura * 4;
+  await userAura.save();
 
-  if (message.content === '!farmearaura') {
-    aura[userId] += 50;
-    saveAura();
+  message.channel.send(
+    `✨ Toki nunca aprendió la técnica de farmear aura invertida, pero… la energía maldita infinita que desborda en el cuerpo de Toki hizo que su cuerpo realizara de forma refleja una técnica de farmear
+aura para evitar ser bonkeado. O sea, en los **4 minutos y 11 segundos** después de un premio de fernet cordobé, **Toki es prácticamente inmortal**.\n\n` +
+    `🔮 Aura actual: **${userAura.aura}**`
+  );
 
-    message.channel.send(
-      `✨ **${username}** farmeó aura\n` +
-      `🔮 Aura actual: **${aura[userId]}**`
-    );
-  }
+  message.channel.send(
+    'https://tenor.com/view/hakari-domain-expansion-domain-expansion-anime-gif-11188887952426718576'
+  );
+}
 
-  if (message.content === '!aura') {
-    message.channel.send(
-      `🔮 **${username}**, tu aura es **${aura[userId]}**`
-    );
-  }
 
-  if (message.content === '!ExpansionDelDominio' && username.includes('floatingcloud') ) {
-    aura[userId] = aura[userId] * 4;
-    saveAura();
 
-    message.channel.send(
-      `✨ Toki nunca aprendió la técnica de farmear aura invertida,
-    pero… la energia maldita infinita que desborda en el cuerpo de Toki hizo que su cuerpo realizara de forma refleja una técnica de farmear
-    aura para evitar ser bonkeado. O sea, en los 4 minutos y 11 segundos después de un premio de fernet cordobé, Toki es prácticamente inmortal., \n` +
-      `🔮 Aura actual: **${aura[userId]}**`
-    );
-    message.channel.send(`https://tenor.com/view/hakari-domain-expansion-domain-expansion-anime-gif-11188887952426718576`);
-  }
-});
+
 
 
 
@@ -548,3 +578,5 @@ client.login(process.env.TOKEN);
 
 
 //pumples kiti 5/12, gen 27/12, toki 16/08, silvio 18/11, habiltiragoma 21/10
+
+
