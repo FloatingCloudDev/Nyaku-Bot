@@ -36,7 +36,7 @@ module.exports = async function comandosBase(message) {
     const bueno = Math.random() < 0.5; // 50 / 50
 
     if (bueno) {
-    if (username === 'nootnoot9070' && Math.random() < 0.02) {resultado = `🍑 Te tocó sabor **kako**`;} else { resultado = `🍓 Te tocó sabor **frutilla**`;}} else {resultado = `🧼 Te tocó sabor **jabón**`;
+    if (username === 'refington1' && Math.random() < 0.02) {resultado = `🍑 Te tocó sabor **kako**`;} else { resultado = `🍓 Te tocó sabor **frutilla**`;}} else {resultado = `🧼 Te tocó sabor **jabón**`;
     }
     }
 
@@ -105,7 +105,7 @@ module.exports = async function comandosBase(message) {
     if (content === ("!mahoraga")) {
     const mahoraga = new AttachmentBuilder('./images/mahoraga.png');
     const mahocuriou = new AttachmentBuilder('./images/mahocuriou.png');    
-    if (username.includes('nootnoot9070') ) {return message.channel.send({content: `*se adapta legalmente`, files: [mahocuriou]});}
+    if (username.includes('refington1') ) {return message.channel.send({content: `*se adapta legalmente`, files: [mahocuriou]});}
     else {return message.channel.send({content: `*se adapta`, files: [mahoraga]});}
     }
 
