@@ -44,6 +44,7 @@ async function sumarAura(userId, cantidad) {
   return userAura.aura;
 }
 
+const Aura = mongoose.model('Aura', auraSchema);
 
 
 
