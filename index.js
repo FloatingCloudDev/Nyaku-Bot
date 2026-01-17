@@ -401,7 +401,7 @@ if (message.content.toLowerCase().includes("mahito")) {
 }
 
 
-if (message.content.toLowerCase().includes("!Defensa")) {
+if (message.content === "!Defensa") {
   const img = new AttachmentBuilder('./images/defensa.png');
 
   message.channel.send({
