@@ -1,3 +1,5 @@
+const { AttachmentBuilder } = require("discord.js");
+
 async function iniciarMensajesAutomaticos(client, canalId) {
   const canal = await client.channels.fetch(canalId);
 
@@ -8,9 +10,12 @@ async function iniciarMensajesAutomaticos(client, canalId) {
     canal.send("💧 Tomen agua");
   }, DOS_HORAS);
 
+
   setInterval(() => {
     canal.send("*Se tira agua encima y se bugea*");
   }, OCHO_HORAS);
+
+  
 }
 
 module.exports = { iniciarMensajesAutomaticos };

@@ -65,10 +65,19 @@ module.exports = async function comandosBase(message) {
     "Que estas intentando hacer zorra? Habil es mio",
     "Queres verme las garritas?",
     "Un dia voy a tomar la pastilla y todos ustedes van a desaparecer de mi mente",
-    "Hay que tomarse la pastilla o ya es la hora de tomarse la pastilla"
+    "Hay que tomarse la pastilla o ya es la hora de tomarse la pastilla",
+    "Mas tarde te agarro",
+    "Basta porque me caliento",
+    "Mono no mata mono"
     ];
     const mensaje = mensajes[Math.floor(Math.random() * mensajes.length)];
-    return message.channel.send(`<:yerba:1438226204187693217> ${mensaje}`);
+    if(mensaje === "Queres verme las garritas?"){
+    const img = new AttachmentBuilder("./images/garritas.png");
+    return message.channel.send({content: `<:yerba:1438226204187693217> Miren mis garritas`, files: [img]});
+    }else{
+        return message.channel.send(`<:yerba:1438226204187693217> ${mensaje}`);
+    }
+    
     }
 
     if (content.startsWith("!despeinar")) {
