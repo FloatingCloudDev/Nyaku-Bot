@@ -5,6 +5,7 @@ const { Client, GatewayIntentBits } = require("discord.js");
 require("dotenv").config();
 
 const express = require("express");
+const https = require("https");
 const { connectMongo } = require("./services/mongo");
 const { iniciarMensajesAutomaticos } = require("./services/autoMessages.service");
 const handleMessage = require("./handlers/message.handler");
@@ -42,6 +43,47 @@ if (!process.env.MONGO_URI) {
 }
 
 // ==============================
+// FUNCION PARA VALIDAR IP / TOKEN
+// ==============================
+function validarConexionDiscord(token) {
+  return new Promise((resolve) => {
+    const options = {
+      hostname: "discord.com",
+      path: "/api/v10/gateway",
+      method: "GET",
+      headers: {
+        Authorization: `Bot ${token}`,
+      },
+    };
+
+    const req = https.request(options, (res) => {
+      console.log("Status Code test Discord:", res.statusCode);
+
+      if (res.statusCode === 200) {
+        console.log("✅ Conexión a Discord OK: IP y token parecen válidos");
+        resolve("OK");
+      } else if (res.statusCode === 401) {
+        console.error("❌ Token inválido o no autorizado");
+        resolve("TOKEN_INVALIDO");
+      } else if (res.statusCode === 429) {
+        console.warn("⚠️ Rate limited: la IP podría estar bloqueada temporalmente");
+        resolve("RATE_LIMIT");
+      } else {
+        console.error("❌ Otro error al conectar con Discord:", res.statusCode);
+        resolve("ERROR_DESCONOCIDO");
+      }
+    });
+
+    req.on("error", (error) => {
+      console.error("❌ Error de conexión (posible bloqueo de IP):", error.message);
+      resolve("IP_BLOQUEADA");
+    });
+
+    req.end();
+  });
+}
+
+// ==============================
 // DISCORD CLIENT
 // ==============================
 const client = new Client({
@@ -52,7 +94,7 @@ const client = new Client({
   ],
 });
 
-// Logs de debug (MUY útiles en Render)
+// Logs de debug
 client.on("debug", console.log);
 client.on("error", console.error);
 client.on("shardError", console.error);
@@ -70,13 +112,22 @@ client.on("ready", () => {
 client.on("messageCreate", handleMessage);
 
 // ==============================
-// LOGIN DISCORD
+// LOGIN DISCORD CON VALIDACION
 // ==============================
-if (!process.env.DISCORD_TOKEN) {
-  console.error("❌ DISCORD_TOKEN no está definido");
-  process.exit(1);
-}
+(async () => {
+  if (!process.env.DISCORD_TOKEN) {
+    console.error("❌ DISCORD_TOKEN no está definido");
+    process.exit(1);
+  }
 
-client.login(process.env.DISCORD_TOKEN).catch((err) => {
-  console.error("❌ Error al loguear el bot:", err);
-});
+  const estado = await validarConexionDiscord(process.env.DISCORD_TOKEN);
+
+  if (estado === "OK") {
+    client.login(process.env.DISCORD_TOKEN).catch((err) => {
+      console.error("❌ Error al loguear el bot:", err);
+    });
+  } else {
+    console.error("❌ No se puede loguear el bot debido a problemas detectados:", estado);
+    process.exit(1);
+  }
+})();
