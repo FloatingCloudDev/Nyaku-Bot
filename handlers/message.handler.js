@@ -65,13 +65,13 @@ module.exports = async function handleMessage(message) {
   const data = activityMap.get(channelId);
   data.users.add(message.author.id);
 
-  if (now - data.last < 10_000) {
-    if (data.users.size >= 5 && !data.triggered) {
+  if (now - data.last < 15_000) {
+    if (data.users.size >= 4 && !data.triggered) {
     data.triggered = true;
     setTimeout(() => activityMap.delete(channelId), 30_000);
     const img = new AttachmentBuilder("./images/nyakuobserva.png");
     return message.channel.send({
-    content: " ",
+    content: "Nyaku los está observando 👀",
     files: [img],
     });
       
