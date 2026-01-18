@@ -1,9 +1,11 @@
+const { AttachmentBuilder } = require("discord.js");
 const {
   sumarAura,
   obtenerAura,
   aplicarExpansion
 } = require('../services/aura.service');
 
+const activityMap = new Map();
 const textResponses = require('../responses/textResponses');
 const imageResponses = require('../responses/imageResponses');
 const comandosBases = require('../responses/comandosbase');
@@ -47,6 +49,42 @@ module.exports = async function handleMessage(message) {
       'https://tenor.com/view/hakari-domain-expansion-domain-expansion-anime-gif-11188887952426718576'
     );
   }
+
+
+  const channelId = message.channel.id;
+  const now = Date.now();
+
+  if (!activityMap.has(channelId)) {
+    activityMap.set(channelId, {
+      users: new Set(),
+      last: now,
+      triggered: false
+    });
+  }
+
+  const data = activityMap.get(channelId);
+  data.users.add(message.author.id);
+
+  if (now - data.last < 10_000) {
+    if (data.users.size >= 5 && !data.triggered) {
+    data.triggered = true;
+    setTimeout(() => activityMap.delete(channelId), 30_000);
+    const img = new AttachmentBuilder("./images/nyakuobserva.png");
+    return message.channel.send({
+    content: " ",
+    files: [img],
+    });
+      
+    }
+  } else {
+    activityMap.set(channelId, {
+      users: new Set([message.author.id]),
+      last: now,
+      triggered: false
+    });}
+
+
+
 
   /* =====================
      RESPUESTAS AUTOMÁTICAS
