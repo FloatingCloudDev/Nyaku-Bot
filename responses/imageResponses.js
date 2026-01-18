@@ -11,6 +11,15 @@ module.exports = async function imageResponses(message) {
     });
     }
 
+    if (content === "!veladora") {
+    const img = new AttachmentBuilder("./images/veladora.png");
+    return message.channel.send({
+    content: "Veladora para atraer el coito",
+    files: [img],
+    });
+    }
+
+
     if (content === "!prudencio") {
     const img = new AttachmentBuilder("./images/Prudencio.png");
     return message.channel.send({
