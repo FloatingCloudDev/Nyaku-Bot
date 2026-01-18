@@ -110,6 +110,11 @@ module.exports = async function comandosBase(message) {
     const mensaje = mensajes[Math.floor(Math.random() * mensajes.length)];
     return message.channel.send(`${mensaje}`);
     }
+
+    if (content === ("!ringforcarrots")) {
+        return message.channel.send(`https://tenor.com/view/carrot-farm-bnuuy-gif-1966266774092470412`);
+    }
+    
     
     if (content === ("!mahoraga")) {
     const mahoraga = new AttachmentBuilder('./images/mahoraga.png');
